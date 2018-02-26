@@ -1,0 +1,65 @@
+{% extends "master_page/master.html" %}
+
+{% load staticfiles %}
+
+{% block style %}
+<style type="text/css" scoped>
+  .col-centrada{
+    float: none;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .marginTop {
+    margin-bottom: 20px;
+  }
+
+  .marginTop img {
+    border-radius: 100%;
+  }
+
+  .marginTop img:hover {
+    transform: rotate(360deg);
+    box-shadow: 0px 3px 10px #808080;
+    transition: all ease 2s;
+  }
+
+  a#btn:hover {
+    box-shadow: 0px 3px 10px #808080;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% if not user.is_authenticated %}
+<div class="container" style="margin-top:60px">
+  <div class="col-lg-6 col-centrada">
+    <div class="marginTop">
+      <img src="{% static "img/logos/logo.png" %}" />
+    </div>
+    <div class="marginTop">
+      <a id="btn" href="{% url 'Usuarios:usuario-login' %}" class="btn btn-info btn-md" role="button">Iniciar sesión</a>
+    </div>
+  </div>
+</div>  
+{% else %}
+<div class="container" style="margin-top:60px">
+  <h4>¡Seleccione un menu por favor!</h4>
+
+  <hr />
+                  
+  <ul class="nav nav-pills nav-stacked" role="tablist">
+    <li class="active">
+      <a href="{% url 'MedioComunicacion:listar' %}">Medios de Comunicación</a>
+    </li>
+    <li><a href="#">Periodistas</a></li>
+    <li><a href="#">Acerda de Nosotros</a></li>        
+  </ul>
+</div>
+{% endif %}
+
+{% endblock %}
+
+

@@ -1,0 +1,120 @@
+{% extends "master_page/master.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+  App Viva - Listar Medios de Comunicación
+{% endblock %}</title>
+
+{% block style %}
+<link  rel="stylesheet" href="{% static 'css/fonts.css' %}" >
+{% endblock style %}
+
+{% block content %}
+<div class="container">
+  <div class="d-inline">
+    <h3><strong>Medios de Comunicación</strong></h3>
+
+    {% if perms.Periodistas.add_mediocomunicacion %}
+    <a href="{% url 'MedioComunicacion:agregar' %}" class="btn btn-success">Agregar Medio de Comunicación</a>
+    {% endif %}
+  </div>
+
+  <hr>
+
+  <div class="form-group row">
+    <form mathod="GET" class="form-inline pull-right" role="form">
+      <div class="form-group">
+        <label for="medio_comunicacion">Encontrar Medio de Comunicación:</label>
+        <input type="text" class="form-control" name="q" id="medio_comunicacion" value="{{ params.query }}" placeholder="Buscar">
+      </div>
+      <button type="submit" id="btnBuscar" class="btn btn-default">Buscar</button>
+    </form>
+  </div>
+
+  {% if medios_comunicacion %}
+  <div class="table-responsive">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>Nombre Medio</th>
+          <th>Localidad</th>
+          <th>Representante Legal</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Dirección</th>
+          <th>Estado</th>
+          <th>Nombre</th>
+          <th>Cédula</th>
+          <th>Ciudad</th>
+          <th>Zona</th>
+          {% if user.is_authenticated %}
+            {% if perms.Periodistas.change_mediocomunicacion or  perms.Periodistas.delete_mediocomunicacion %}
+            <th>Acciones</th>
+            {% endif%}
+          {% endif %}
+        </tr>
+      </thead>
+      <tboby>
+        {% for medio in medios_comunicacion %}
+        <tr>
+          <td>{{ medio.nombre_medio }}</td>
+          <td>{{ medio.localidad }}</td>
+          <td>{{ medio.representante_legal }}</td>
+          <td>{{ medio.correo_electronico | default_if_none:"" }}</td>
+          <td>{{ medio.telefono | default_if_none:"" }}</td>
+          <td>{{ medio.direccion | default_if_none:"" }}</td>
+          <td>{{ medio.estado | default_if_none:"" }}</td>
+          <td>{{ medio.nombre | default_if_none:"" }}</td>
+          <td>{{ medio.cedula | default_if_none:"" }}</td>
+          <td>{{ medio.ciudad | default_if_none:"" }}</td>
+          <td>{{ medio.zona }}</td>
+          {% if user.is_authenticated %}
+            {% if perms.Periodistas.change_mediocomunicacion or  perms.Periodistas.delete_mediocomunicacion %}
+            
+            <td style="text-align: center">
+
+              {% if perms.Periodistas.change_mediocomunicacion %}
+              <a class="nav-link" href="{% url 'MedioComunicacion:editar' medio.id %}">
+                  <span class="icon-pencil" title="Editar"></span>
+              </a> 
+              {% endif %}
+              
+              {% if perms.Periodistas.delete_mediocomunicacion %}
+                <a class="nav-link" href="{% url 'MedioComunicacion:eliminar' medio.id %}">
+                  <span class="icon-cross" title="Eliminar"></span>
+                </a>
+              {% endif %}
+            </td> 
+
+            {% endif %}
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tboby>
+    </table>
+  </div>
+
+  {% if page_obj.has_previous or page_obj.has_next  %}
+    <div class="row pager">
+      {% if page_obj.number and  page_obj.paginator.num_pages %}
+      <h6>Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</h6>
+      {% endif %}
+
+      {% if page_obj.has_previous %}
+      <a class="btn btn-primary btn-sm" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+      {% endif %}
+
+      {% if page_obj.has_next %}
+      <a class="btn btn-primary btn-sm" href="?page={{ page_obj.next_page_number }}">siguiente</a>
+      {% endif %}
+    </div>
+    {% endif %}
+
+  {% else %}
+  <div class="alert alert-info">
+    <strong>Información!</strong> No se encontrarón registros de medios de comunicación.
+  </div>  
+  {% endif %}
+</div>
+{% endblock content %}

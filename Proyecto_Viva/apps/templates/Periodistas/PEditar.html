@@ -1,0 +1,29 @@
+{% extends "master_page/master.html" %}
+
+{% block title %}
+  App Viva - Editar Medios de Comunicación
+{% endblock %}</title>
+
+{% block content %}
+<div class="container">
+	<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h3><strong>Editar Medio: {{ form.nombre_medio.value }}</strong></h3>
+			<hr>
+    </div>
+  </div>
+
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<form method="POST" role="form">
+					{% csrf_token %}
+				
+				{{form.as_p}}
+				
+				<input type="submit" class="btn btn-primary" value="Guardar">
+				<a href="{% url 'MedioComunicacion:listar' %}" class="btn btn-default" role="button">Cancelar</a>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock content %}

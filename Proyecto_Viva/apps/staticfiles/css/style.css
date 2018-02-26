@@ -1,0 +1,21 @@
+.container {
+	width: 99% !important;
+	margin: 60px auto !important; 
+}
+
+[class^="icon-"] {
+	cursor: pointer;
+	margin: 0 6px;
+}
+
+.icon-pencil {
+	color: blue;
+}
+
+.icon-cross {
+	color: #FF0000;
+}
+
+table tr td a:hover {
+	text-decoration: none;
+}

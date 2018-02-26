@@ -1,0 +1,57 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}App Viva{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script type="text/javascript" src="{% static 'js/jquery-2.2.3.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    {% block style %}{% endblock %}
+  </head>
+  <body>
+    {% block navbar %}
+      {% if user.is_authenticated %}
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <!-- El logotipo y el icono que despliega el menú se agrupan
+         para mostrarlos mejor en los dispositivos móviles -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Desplegar navegación</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="{% url 'index' %}" class="navbar-brand">Bienvenido</a>
+        </div>
+
+        <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+             otro elemento que se pueda ocultar al minimizar la barra -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse navbar-right" style="margin-right:4px">
+          <ul class="nav navbar-nav mr-2">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                {{request.user.get_username}}
+              <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                {% if request.user.is_staff%}
+                  <li><a href="{% url 'admin:index' %}">Administrador</a></li>
+                  <li class="divider"></li>
+                {% endif %}  
+                <li><a href="{% url 'Usuarios:usuario-logout' %}">Cerrar sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      {% endif %}
+    {% endblock %}
+
+    {% block content %}
+
+    {% endblock %}
+  </body>
+</html>

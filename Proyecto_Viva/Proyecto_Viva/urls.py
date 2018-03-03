@@ -14,12 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import include, url, handler400, handler500
 from django.conf.urls.static import static
 from django.contrib import admin
 
 from apps.Usuarios.views import index
-
+from apps.Periodistas.views import error_404, error_500
 
 urlpatterns = [
     url(r'^$', index, name='index'),
@@ -27,3 +27,6 @@ urlpatterns = [
     url(r'^mediocomunicacion/', include('apps.Periodistas.urls', namespace='MedioComunicacion')),
     url(r'^usuario/', include('apps.Usuarios.urls', namespace='Usuarios')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler400 = error_404
+handler500 = error_500

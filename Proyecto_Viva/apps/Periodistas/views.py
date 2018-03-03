@@ -75,4 +75,7 @@ class MedioComunicacionUpdateView(UpdateView):
 
 
 def error_404(request):
-    return render(request, "errores/404.html", {})
+    return render(request, "errores/error.html", { "primero": 4, "segundo": 0, "tercero": 4 })
+
+def error_500(request):
+    return render(request, "errores/error.html", { "primero": 5, "segundo": 0, "tercero": 0 })

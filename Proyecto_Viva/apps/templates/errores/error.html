@@ -1,7 +1,7 @@
 {% extends "../master_page/master.html" %}
 
 {% block title %}
-  App Viva - 404
+  App Viva - Error 404
 {% endblock title %}
 
 {% block style %}
@@ -146,15 +146,15 @@
 
 {% block content %}
 <div class="container">
-  <h1>404 Error de página</h1>
-  <p class="zoom-area"><b>CSS</b> animations to make a cool 404 page. </p>
+  <h1>Error de página</h1>
+  <p class="zoom-area"><b>La página no está disponible en este momento.</b></p>
   <section class="error-container">
-    <span><span>4</span></span>
-    <span>0</span>
-    <span><span>4</span></span>
+    <span><span>{{ primero }}</span></span>
+    <span>{{ segundo }}</span>
+    <span><span>{{ tercero }}</span></span>
   </section>
   <div class="link-container">
     <a href="{% url 'index' %}" class="more-link">Volver al sitio original</a>
   </div>
 </div>
-{% endblock content %<div class="container">
+{% endblock content %}
